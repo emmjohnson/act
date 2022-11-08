@@ -549,11 +549,15 @@ func (rc *RunContext) withGithubEnv(ctx context.Context, github *model.GithubCon
 	env["GITHUB_ACTION_REF"] = github.ActionRef
 	env["GITHUB_ACTIONS"] = "true"
 	env["GITHUB_ACTOR"] = github.Actor
-	env["GITHUB_REPOSITORY"] = github.Repository
+	if env["GITHUB_REPOSITORY"] == "" {
+		env["GITHUB_REPOSITORY"] = github.Repository
+	}
 	env["GITHUB_EVENT_NAME"] = github.EventName
 	env["GITHUB_EVENT_PATH"] = github.EventPath
 	env["GITHUB_WORKSPACE"] = github.Workspace
-	env["GITHUB_SHA"] = github.Sha
+	if env["GITHUB_SHA"] == "" {
+		env["GITHUB_SHA"] = github.Sha
+	}
 	env["GITHUB_REF"] = github.Ref
 	env["GITHUB_REF_NAME"] = github.RefName
 	env["GITHUB_REF_TYPE"] = github.RefType
